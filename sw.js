@@ -1,6 +1,6 @@
-const C = "th26-27be383fed", A = "th26-assets", F = "th26-fonts";
+const C = "th26-f472fe365b", A = "th26-assets", F = "th26-fonts";
 const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icon-180.png", "./icon-192.png", "./icon-512.png"];
-const ASSETS = ["a/app-2ce077d8633ab0.bin", "a/ia733161e829137.bin", "a/i27f4f9cb306848.bin", "a/i6bcfd0503c259c.bin", "a/ib6e86807a5b12f.bin", "a/if0f9ca48ab11a9.bin", "a/i3988d3e288331f.bin", "a/ib660c262ba2183.bin"];
+const ASSETS = ["a/app-1400f4aceb9ec0.bin", "a/ia733161e829137.bin", "a/i27f4f9cb306848.bin", "a/i6bcfd0503c259c.bin", "a/ib6e86807a5b12f.bin", "a/if0f9ca48ab11a9.bin", "a/i3988d3e288331f.bin", "a/ib660c262ba2183.bin"];
 self.addEventListener("install", (e) => { e.waitUntil(Promise.all([caches.open(C).then((c) => c.addAll(CORE)), caches.open(A).then(async (c) => { if (!(await c.match(ASSETS[0]))) await c.add(ASSETS[0]); })]).then(() => self.skipWaiting())); });
 self.addEventListener("activate", (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== C && k !== A && k !== F).map((k) => caches.delete(k))))
   .then(() => caches.open(A)).then((c) => c.keys().then((rs) => Promise.all(rs.filter((r) => !ASSETS.some((a) => r.url.endsWith(a))).map((r) => c.delete(r))))).then(() => self.clients.claim())); });
